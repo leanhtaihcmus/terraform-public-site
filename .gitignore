@@ -1,1 +1,3 @@
 infra/.terraform/
+presentation-tier/node_modules/
+application-tier/node_modules/
