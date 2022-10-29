@@ -38,3 +38,15 @@ resource "aws_lb_target_group_attachment" "front_end" {
   target_id = aws_instance.front_end[count.index].id
   port = 80
 }
+
+
+# ALB for application_tier
+resource "aws_lb" "application_tier" {
+  name = "application-tier-lb"
+  internal = true
+  load_balancer_type = "application"
+  security_groups = [aws_security_group.main_sg.id]
+  subnets = aws_subnet.public_subnets.*.id
+  
+  enable_deletion_protection = false
+}

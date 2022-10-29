@@ -43,11 +43,16 @@ resource "aws_security_group" "presentation_tier" {
   description = "Allow HTTP"
   vpc_id      = aws_vpc.main.id
 
+  # Configuration block for ingress rules. Can be specified multiple times for each ingress rule. 
+  # Each ingress block supports fields documented below. This argument is processed in attribute-as-blocks mode.
   ingress {
     description     = "HTTP from anywhere"
+    # CMP type number if protocol is icmp or icmpv6).
     from_port       = 80
+    # (Required) End range port (or ICMP code if protocol is icmp)
     to_port         = 80
     protocol        = "tcp"
+    # Optional) List of security groups. A group name can be used relative to the default VPC. Otherwise, group ID
     security_groups = [aws_security_group.alb_presentation_tier.id]
   }
 
